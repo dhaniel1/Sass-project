@@ -1,0 +1,125 @@
+.menu-btn {
+  position: absolute;
+  right: 35px;
+  top: 35px;
+  z-index: 3;
+  cursor: pointer;
+  @include easeOut;
+
+  .btn-line {
+    width: 28px;
+    height: 3px;
+    margin: 0 0 5px 0;
+    background: #fff;
+    @include easeOut;
+  }
+
+  // Rotate into X with menu lines
+  &.close {
+    transform: rotate(180deg);
+
+    .btn-line {
+      // Rotate line 1
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  opacity: 0.9;
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+  }
+
+  &-branding,
+  &-nav {
+    display: flex;
+    flex-flow: column wrap;
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    float: left;
+  }
+  &-branding {
+    background: $primary-color;
+    transform: translate3d(0, 100%, 0);
+    @include easeOut;
+
+    &.show {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .portrait {
+      height: 250px;
+      width: 250px;
+      background: url("../img/boat.jpg");
+      border-radius: 50%;
+      border: 5px $secondary-color solid;
+    }
+  }
+
+  &-nav {
+    background: darken($color: $primary-color, $amount: 5);
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    transform: translate3d(0, -100%, 0);
+    @include easeOut;
+
+    &.show {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .nav-item {
+      transform: translate3d(600px, 0, 0);
+      @include easeOut;
+
+      &.show {
+        transform: translate3d(0, 0, 0);
+      }
+
+      &.current > a {
+        color: $secondary-color;
+      }
+
+      .nav-link {
+        display: inline-block;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 30px;
+        font-weight: lighter;
+        padding: 1rem 0;
+        text-decoration: none;
+        @include easeOut;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+}
+
+@for $x from 1 through 4 {
+  .nav-item:nth-child(#{$x}) {
+    transition-delay: $x * 0.1s;
+  }
+}
+
